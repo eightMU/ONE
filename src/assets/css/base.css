@@ -1,0 +1,35 @@
+charset utf-8
+
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font: 0.16rem/1 "微软雅黑";
+	background: #fff;
+}
+p {
+	margin: 0;
+}
+a {
+	text-decoration: none;
+	color: #000;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font: 0.2rem/0.3rem '微软雅黑';
+}
+.clearFix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#app {
+	margin: 0 auto;
+	height: 100%;
+}
+i {
+	color: #b3b3b3;
+}
