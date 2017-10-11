@@ -3,7 +3,7 @@
   	<header>
         <x-header style="background-color:transparent;">
            <i @click='isShow' slot="overwrite-left" class="icon iconfont icon-category"></i>{{title}}
-           <router-link to='/login' slot="right">
+           <router-link :to='path' slot="right">
              <i class="icon iconfont icon-wode"></i>
            </router-link>
         </x-header>
@@ -33,6 +33,14 @@ export default {
     }
   },
   components: { XHeader},
+  computed:{
+    path(){
+      if (this.$store.state.nowUser.user) {
+        return '/user'
+      }
+      return '/login'
+    }
+  },
   methods:{
     isShow(e){
       var sidebar = this.$refs.side;
@@ -73,9 +81,6 @@ export default {
     hideBar(){
       var sidebar = this.$refs.side;
        $(sidebar).css({'left':'-2rem'})
-    },
-    login(){
-      console.log('login')
     },
     changeTilte(n){
       this.title = this.sidebarData[n].title;

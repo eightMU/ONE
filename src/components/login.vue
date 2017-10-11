@@ -71,7 +71,6 @@ export default {
   		}
   	},
   	saveUserInfo(){
-  		console.log(1111)
   		this.$store.commit('saveUserInfo',{user:this.usernameValue,password:this.userPassword})		
   	}
   }

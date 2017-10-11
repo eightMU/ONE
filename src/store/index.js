@@ -18,7 +18,7 @@ const store = new Vuex.Store({
 		commentLength:0,
 		musicData:[],
 		userData:[], //所有用户数据
-		nowUser:{}  //现在用户
+		nowUser:{},  //现在用户
 	},
 	getters:{
 		sliderData(state){
@@ -112,6 +112,9 @@ const store = new Vuex.Store({
 		saveUserInfo(state,data){
 			state.nowUser = data;
 			state.userData.push(data);
+		},
+		clearUserInfo(state,data){
+			state.nowUser = {};
 		}
 	},
 	actions:{
