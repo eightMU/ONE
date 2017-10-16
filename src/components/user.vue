@@ -1,42 +1,40 @@
 <template>
 	<div id="user">
-		<x-header style="background-color:transparent;">
-		   <i @click='isShow' slot="overwrite-left" class="icon iconfont icon-category"></i>用户信息
-		   </router-link>
-       <router-link to='/login' slot="right" @click.native='logout'>退出</router-link>
-		</x-header>
-		<div class="content">
-			<div>
-				<img class="userIcon" src="static/image/user-icon.jpg">
-				<div class="username">{{username}}</div>
-			</div>
-			<div>
-				<h3>我的关注</h3>
-			</div>
-
-		</div>
-		<ul id="sidebar" ref='side'  @click='isHide'>
-	       <li>X</li>
-	       <li v-for='item,index in sidebarData' @click='changeTilte(index)'>
-	       <router-link :to='item.link'>{{item.title}}</router-link>
-	       </li>
-     	</ul>
+   <div v-if='hasUser'>
+      <x-header :left-options="{showBack: false}" style="background-color:transparent;">
+         用户信息
+          <span slot="right" @click='logout'>退出</span>
+      </x-header>
+      <div class="content">
+        <div>
+          <img class="userIcon" src="static/image/user-icon.jpg">
+          <div class="username">{{username}}</div>
+        </div>
+        <div>
+          <h3>我的关注</h3>
+        </div>
+      </div>
+   </div>
+   <div v-else=''>
+     <router-link to='/login'>请登录</router-link>
+   </div>
+   <x-footer></x-footer>
 	</div>
 </template>
 
 <script>
 import { XHeader } from 'vux'
+import xFooter from './indexSub/footer.vue'
 export default {
   name: 'user',
   components: { 
   	XHeader, 
+    'x-footer':xFooter
   },
   data(){
-	return{
-		sidebarData:[{title:'ONE',link:'/'},
-		  {title:'阅读',link:'/reading'},
-		  {title:'音乐',link:'/music'}]
-	}
+  	return{
+      
+  	}
   },
   computed:{
   	username(){
@@ -44,57 +42,19 @@ export default {
   		if (userNumber) {
   			return this.$store.state.userData[userNumber-1].user;
   		} 
-  	}
+  	},
+    hasUser(){
+      if (!this.$store.state.nowUser.user) {
+        return false
+      }
+      return true
+    }
   },
   methods:{
     logout(){
       this.$store.commit('clearUserInfo')
-    },
-    isShow(e){
-      var sidebar = this.$refs.side;
-      $(sidebar).css({'left':'0'})
-      var child = this.$refs.side.children;
-      var n = $(child).length;
-      var now = 0;
-        var timer = 0;
-        clearInterval(timer);
-        timer =  setInterval(()=>{
-         $(child).eq(now).css({'transform':'rotateY(0)'});
-         now++;
-         if (now == n) {
-          clearInterval(timer);
-         }
-        },50);
-        e.cancelBubble = true;
-    },
-    isHide(e){
-      e.cancelBubble = true;
-      var child = this.$refs.side.children;
-      var n = $(child).length;
-      var now = 0;
-      var timer = 0;
-      clearInterval(timer);
-      timer =  setInterval(()=>{
-       $(child).eq(now).css({'transform':'rotateY(90deg)'});
-       now++;
-       if (now == n) {
-        clearInterval(timer);
-        var sidebar = this.$refs.side;
-        setTimeout(()=>{
-           $(sidebar).css({'left':'-2rem'})
-         },500)
-       }
-      },50)
-    },
-    hideBar(){
-      var sidebar = this.$refs.side;
-       $(sidebar).css({'left':'-2rem'})
-    },
-    changeTilte(n){
-      this.title = this.sidebarData[n].title;
     }
   }
-
 }
 </script>
 
@@ -137,9 +97,17 @@ export default {
     font-size: .5rem;
     color: #000;
   }
-  #user .vux-header-right a {
-    height: .5rem;
-    line-height: .5rem;
+  #user .vux-header-right {
+    width: 1rem;
+    height: .96rem;
+    text-align: center;
+    top: 0;
+    right: 0;
+    line-height: 1rem;
+
+  }
+  #user .vux-header-right span {
+    display: block;
     font-size: .3rem;
     color: #000;
   }

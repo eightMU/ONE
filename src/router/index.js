@@ -43,13 +43,14 @@ export default new Router({
       name: 'detail',
       component: Detail
     },
-    {
-      path: '/login',
-      component: Login
-    },
+    
     {
       path: '/register',
       component: Register
+    },
+    {
+      path: '/login',
+      component: Login
     },
     {
       path: '/user',

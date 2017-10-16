@@ -1,90 +1,42 @@
 <template>
   <div id="index">
   	<header>
-        <x-header style="background-color:transparent;">
-           <i @click='isShow' slot="overwrite-left" class="icon iconfont icon-category"></i>{{title}}
+        <x-header :left-options="{showBack: false}" style="background-color:transparent;">
+           {{title}}
            <router-link :to='path' slot="right">
              <i class="icon iconfont icon-wode"></i>
            </router-link>
         </x-header>
-          
   	</header>
      <router-view></router-view>
-     <ul id="sidebar" ref='side'  @click='isHide'>
-       <li>X</li>
-       <li v-for='item,index in sidebarData' @click='changeTilte(index)'>
-       <router-link :to='item.link'>{{item.title}}</router-link>
-       </li>
-     </ul>
+     <x-footer></x-footer>
   </div>
 </template>
 
 <script>
 import { XHeader } from 'vux'
-import $ from 'jquery'
+import { Tab, TabItem } from 'vux'
+import xFooter from './indexSub/footer.vue'
 export default {
   name: 'index',
   data(){
     return {
-      title:'ONE',
-      sidebarData:[{title:'ONE',link:'/'},
-        {title:'阅读',link:'/reading'},
-        {title:'音乐',link:'/music'}]
     }
   },
-  components: { XHeader},
+  components: { XHeader,Tab, TabItem,'x-footer':xFooter},
   computed:{
     path(){
       if (this.$store.state.nowUser.user) {
         return '/user'
       }
       return '/login'
-    }
+    },
+     title(){
+      return this.$store.state.title
+     } 
   },
   methods:{
-    isShow(e){
-      var sidebar = this.$refs.side;
-      $(sidebar).css({'left':'0'})
-      var child = this.$refs.side.children;
-      var n = $(child).length;
-      var now = 0;
-        var timer = 0;
-        clearInterval(timer);
-        timer =  setInterval(()=>{
-         $(child).eq(now).css({'transform':'rotateY(0)'});
-         now++;
-         if (now == n) {
-          clearInterval(timer);
-         }
-        },50);
-        e.cancelBubble = true;
-    },
-    isHide(e){
-      e.cancelBubble = true;
-      var child = this.$refs.side.children;
-      var n = $(child).length;
-      var now = 0;
-      var timer = 0;
-      clearInterval(timer);
-      timer =  setInterval(()=>{
-       $(child).eq(now).css({'transform':'rotateY(90deg)'});
-       now++;
-       if (now == n) {
-        clearInterval(timer);
-        var sidebar = this.$refs.side;
-        setTimeout(()=>{
-           $(sidebar).css({'left':'-2rem'})
-         },500)
-       }
-      },50)
-    },
-    hideBar(){
-      var sidebar = this.$refs.side;
-       $(sidebar).css({'left':'-2rem'})
-    },
-    changeTilte(n){
-      this.title = this.sidebarData[n].title;
-    }
+    
   }
 }
 </script>
@@ -118,29 +70,24 @@ export default {
     font-size: .5rem;
     color: #000;
    }
-   #sidebar {
+   #bottomBar {
     position: fixed;
-    left: -2rem;
-    top: 0;
-    z-index: 1;
-    width: 2rem;
-    font: .3rem/2rem '微软雅黑';
-    text-align: center;
-   }
-   #sidebar li {
-    border-bottom: 1px solid #282942;
-    color: #fff;
-    transform: rotateY(90deg);
-    transition: .3s;
-    transform-origin: left center;
-    background: #33334c;
-   }
-   #sidebar li a {
-    display: inline-block;
+    left: 0;
+    bottom: 0;
     width: 100%;
-    height: 100%;
-    color: #fff;
+    height: 1rem;
+    background-color: #fff;
+    z-index: 100;
    }
-   
-	
+   #bottomBar a {
+    display: block;
+    font: .3rem/1rem '微软雅黑';
+   }
+   #bottomBar .router-link-exact-active {
+     background-color: #4c93d4;
+     color: #fff;
+   }
+   #bottomBar .vux-tab-ink-bar {
+    background-color: transparent;
+   }
 </style>

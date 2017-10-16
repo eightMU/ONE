@@ -1,6 +1,6 @@
 <template>
 	<div id="login">
-		<x-header style="background-color: #fff" :left-options="{backText: ''}">登录</x-header>
+		<x-header :left-options="{showBack: false}" style="background-color: #fff">登录</x-header>
 		<div class="content">
 			<div>
 		    	<group>
@@ -29,7 +29,9 @@ export default {
   	XInput,
     XButton,
     Group,
-    Cell },
+    Cell,
+    Tab,
+    TabItem },
   data(){
 	return{
 		index:0,

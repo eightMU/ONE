@@ -19,6 +19,7 @@ const store = new Vuex.Store({
 		musicData:[],
 		userData:[], //所有用户数据
 		nowUser:{},  //现在用户
+		title:'ONE',
 	},
 	getters:{
 		sliderData(state){
@@ -69,8 +70,10 @@ const store = new Vuex.Store({
 		}
 
 	},
-
 	mutations: {
+		updateTitle(state,data){
+			state.title = data;
+		},
 		updatePhotoList(state,data){
 			state.photoList = data.data;
 		},
