@@ -122,68 +122,81 @@ const store = new Vuex.Store({
 	},
 	actions:{
 		getList(store) {
-		    fetch('/api/api/hp/idlist/0')
+		    fetch('http://v3.wufazhuce.com:8000/api/hp/idlist/0')
 		        .then( response => {
 		            return response.json();
 		        }).then(data => {
 		        	for (var i = 0; i < data.data.length; i++) {
-		        		fetch(`/api/api/hp/detail/${data.data[i]}`)
+		        		fetch(`http://v3.wufazhuce.com:8000/api/hp/detail/${data.data[i]}`)
 		        		.then( response => {
 		        			return response.json();
 		        		}).then(data => {
 		        			store.commit('updatephotoData',data)
 		        		})
 		        	}
+		        }).catch(err => {
+		        	console.log(err)
 		        })
+  
 		},
 		getSliderList(store) {
-			fetch('/api/api/reading/carousel')
+			fetch('http://v3.wufazhuce.com:8000/api/reading/carousel')
 		    .then( response => {
 		        return response.json();
 		    }).then(data => {
 		    	store.commit('updateSliderList',data)
 		    	
-		    })
+		    }).catch(err => {
+		        	console.log(err)
+		        })
 		},
 		getSliderDetail(store,id) {
-			fetch(`/api/api/reading/carousel/${id}`)
+			fetch(`http://v3.wufazhuce.com:8000/api/reading/carousel/${id}`)
 		    .then( response => {
 		        return response.json();
 		    }).then(data => {
 		    	store.commit('updateSliderDetail',data)
-		    })
+		    }).catch(err => {
+		        	console.log(err)
+		        })
 		},
 		getReadList(store,data) {
-			fetch(`/api/api/reading/index`)
+			fetch(`http://v3.wufazhuce.com:8000/api/reading/index`)
 		    .then( response => {
 		        return response.json();
 		    }).then(data => {
 		    	store.commit('updateReadList',data)
-		    })
+		    }).catch(err => {
+		        	console.log(err)
+		        })
 		},
 		getDetail(store,data) {
-			fetch(`/api/api/${data.type}/${data.id}`)
+			fetch(`http://v3.wufazhuce.com:8000/api/${data.type}/${data.id}`)
 			.then(response => {
 				 return response.json();
 				}).then(data => {
 					store.commit('updateData',data)
-				})
+			}).catch(err => {
+		        	console.log(err)
+		        })
 		},
 		getComment(store,data) {
-			fetch(`/api/api/comment/praiseandtime/${data.manual}/${data.id}/${data.index}`)
+			fetch(`http://v3.wufazhuce.com:8000/api/comment/praiseandtime/${data.manual}/${data.id}/${data.index}`)
 			.then(response => {
 				 return response.json();
 				}).then(data => {
 					store.commit('updateComment',data)
-				})
+			}).catch(err => {
+		        	console.log(err)
+		        })
 		},
 		getMusicList(store){
-			fetch(`/api/api/music/idlist/0`)
+			fetch(`http://v3.wufazhuce.com:8000/api/music/idlist/0`)
 			.then(response => {
 				 return response.json();
 				}).then(data => {
 					for (var i = 0; i < data.data.length; i++) {
-						fetch(`/api/api/music/detail/${data.data[i]}`)
+						fetch(`http://v3.wufazhuce.com:8000/api/music/detail/${data.data[i]}`)
 						.then( response => {
 							return response.json();
 						}).then(data => {
@@ -191,7 +204,9 @@ const store = new Vuex.Store({
 						})
 					}
 					
-				})
+				}).catch(err => {
+		        	console.log(err)
+		        })
 		}
 
 		

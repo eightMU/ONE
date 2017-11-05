@@ -5,8 +5,8 @@
 				<div class="poster" :style="{'backgroundImage':'url('+item.feeds_cover+')'}">
 					<img class="poster" :src="item.cover">
 					<div class="play" @click='isPlay'>
-						<i v-if='play' class="iconfont icon-bofang"></i>
-						<i v-else='' class="iconfont icon-zanting"></i>
+						<!-- <i v-if='play' class="iconfont icon-bofang"></i>
+						<i v-else='' class="iconfont icon-zanting"></i> -->
 			  	  		<audio :src='item'></audio>
 					</div>
 					<p>

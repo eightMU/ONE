@@ -15,7 +15,7 @@
         </div>
       </div>
    </div>
-   <div v-else=''>
+   <div  class='login' v-else=''>
      <router-link to='/login'>请登录</router-link>
    </div>
    <x-footer></x-footer>
@@ -110,6 +110,11 @@ export default {
     display: block;
     font-size: .3rem;
     color: #000;
+  }
+  #user .login {
+    margin: 2rem auto;
+    text-align: center;
+    font: 1rem '微软雅黑';
   }
 	
 </style>

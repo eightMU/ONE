@@ -15,6 +15,7 @@
 	    	    <div>默认输入直接进入</div>
     	   	</div>
 		</div>
+		<x-footer></x-footer>
 	</div>
 </template>
 
@@ -22,6 +23,7 @@
 import { XHeader } from 'vux'
 import { XInput, Group, XButton, Cell } from 'vux'
 import { Tab, TabItem } from 'vux'
+import xFooter from './indexSub/footer.vue'
 export default {
   name: 'login',
   components: { 
@@ -31,7 +33,9 @@ export default {
     Group,
     Cell,
     Tab,
-    TabItem },
+    TabItem,
+    'x-footer':xFooter
+     },
   data(){
 	return{
 		index:0,
